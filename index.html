@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>YouTube Thingy</title>
+	<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+	<style type="text/css">
+		* {
+			font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+			color: #ffffff;
+		}
+		body {
+			text-align: center;
+			background-color: #303030;
+			margin: 0;
+		}
+		h1 {
+			font-family: 'Righteous', cursive;
+			font-size: 40px;
+		}
+		p {
+			font-size: 15px;
+		}
+		p.label {
+			text-align: left;
+			margin-bottom: 0px;
+			margin-left: 5px;
+		}
+		input {
+			font-size: 15px;
+			width: 95%;
+			padding: 10px;
+			margin: 5px 0;
+			border: none;
+			border-bottom: solid 2px #ffffff;
+			background-color: #424242;
+			transition: 0.3s;
+		}
+		input:focus {
+			outline: none;
+			border-bottom-color: #9000ea; 
+		}
+		button {
+			margin: 5px;
+			padding: 10px 15px;
+			background-color: #303030;
+			border: solid 2px #ffffff;
+			border-radius: 5px;
+			font-size: 15px;
+			transition: 0.2s;
+		}
+		button:hover {
+			color: #9000ea;
+			border-color: #9000ea;
+			/*background-color: #c568ff;*/
+			/*background-color: #424242;*/
+		}
+		/*button:active {
+			background-color: #9000ea;
+			color: #ffffff;
+			transition: 0s;
+		}*/
+		iframe {
+			width: 560px;
+			height: 315px;
+			width: 0;
+			height: 0;
+			display: none;
+		}
+		.header {
+			padding: 25px;
+			text-align: center;
+			background-color: #212121;
+		}
+		.body {
+			padding: 20px 25%;
+		}
+		#playPause {
+			display: none;
+			width: 50px;
+			height: 50px;
+			margin: auto;
+			border-radius: 50%;
+			border: solid 2px #9000ea;
+		}
+		#playPause img {
+			margin: 12.5px;
+			width: 25px;
+			height: 25px;
+		}
+	</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="youtube.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var input, code, good = false;
+			$('#url').keyup(function(){
+				input = $('#url').val();
+				code = input.split("=").pop();
+				if(code.length == 11){
+					console.log('goooood', code);
+					good = true;
+				} else {
+					console.log('naw fam');
+					good = false;
+				}
+			});
+			$('#ytplay').click(function(){
+				if(player == undefined && good) {
+					createPlayer(code);
+				}
+			});
+			$('#playPause').click(function(){
+				toggleYT();
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class="header">
+		<h1>YouTube Thingy</h1>
+	</div>
+	<div class="body">
+		<p>Input a YouTube video URL, and the audio from that video will be played in the background.</p>
+		<br>
+		<p class="label">Video URL:</p>
+		<form>
+			<input id="url" type="text" placeholder="URL" autocomplete="off">
+		</form>
+		<button id="ytplay" type="submit">Play</button>
+		<button id="add" type="submit">Add</button>
+	</div>
+	<div id="player" class="video"></div>
+	<div id="playPause">
+		<img src="pics/play_p.svg">
+	</div>
+	<!-- <button id="playPause" type="submit">>/II</button> -->
+</body>
+</html>
