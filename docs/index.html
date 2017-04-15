@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>YouTube Player</title>
+	<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/youtube.js"></script>
+	<script type="text/javascript" src="js/input.js"></script>
+</head>
+<body>
+	<div class="header">
+		<h1>YouTube Thingy</h1>
+	</div>
+	<div class="body">
+		<p>Input a YouTube video URL, and the audio from that video will be played in the background.</p>
+		<br>
+		<p class="label">Video URL:</p>
+		<form>
+			<input id="url" type="text" placeholder="URL" autocomplete="off">
+		</form>
+		<p id="badIdError" class="error">Make sure the code is 11 characters.</p>
+		<p id="sameIdError" class="error">That's the same code, dumbass.</p>
+		<p id="idkError" class="error">IDK</p>
+		<button id="ytplay">Play</button>
+		<button id="add" type="submit">Add</button>
+	</div>
+	<div id="player" class="video"></div>
+	<div class="playPauseCont">
+		<div id="playPause">
+			<img src="">
+		</div>
+	</div>
+
+	<p>9eyyhtOrKPI</p>
+	<p>UC_qla6FQwM</p>
+	<p>okzuXMEqWKk</p>
+</body>
+</html>
