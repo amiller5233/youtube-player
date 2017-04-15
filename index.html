@@ -25,6 +25,13 @@
 			margin-bottom: 0px;
 			margin-left: 5px;
 		}
+		p.error {
+			color: #ff0000;
+			font-size: 12px;
+			margin: 0;
+			text-align: left;
+			display: none;
+		}
 		input {
 			font-size: 15px;
 			width: 95%;
@@ -74,6 +81,9 @@
 		.body {
 			padding: 20px 25%;
 		}
+		.playPauseCont {
+			height: 50px;
+		}
 		#playPause {
 			display: none;
 			width: 50px;
@@ -94,22 +104,68 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var input, code, good = false;
+
+			// READ INPUT BAR
 			$('#url').keyup(function(){
 				input = $('#url').val();
 				code = input.split("=").pop();
 				if(code.length == 11){
-					console.log('goooood', code);
 					good = true;
 				} else {
-					console.log('naw fam');
 					good = false;
 				}
 			});
+
+			// CLICK PAY BUTTON
 			$('#ytplay').click(function(){
-				if(player == undefined && good) {
-					createPlayer(code);
+
+				// Create first player
+				if(player == undefined) {
+					if(good){
+						createPlayer(code);
+						closeErrors();
+					} else {
+						console.log('bad ID');
+						$('#badIdError').slideDown();
+					}
+				} else {
+					if(code == curId) {
+						console.log('same, do nothing.');
+						$('#sameIdError').slideDown();
+					} else if(code != curId && good) {
+						$('#playPause').hide();
+						player.destroy();
+						console.log('destroyed');
+						player = undefined;
+						createPlayer(code);
+						closeErrors();
+						console.log('new');
+					}
 				}
+
+				function closeErrors() {
+					$('.error').each(function(){
+						$(this).slideUp();
+					});
+				}
+
+				// if(player == undefined && good) {
+				// 	createPlayer(code);
+				// } else if(code == curId) {
+				// 	console.log('same');
+				// } else if(code != curId && good) {
+				// 	console.log('new');
+				// 	player.destroy();
+				// 	player = undefined;
+				// 	$('#playPause').hide();
+				// 	console.log(player);
+				// } else {
+				// 	console.log('naw');
+				// }
+
 			});
+
+			// CLICK PLAY PAUSE
 			$('#playPause').click(function(){
 				toggleYT();
 			});
@@ -127,13 +183,22 @@
 		<form>
 			<input id="url" type="text" placeholder="URL" autocomplete="off">
 		</form>
-		<button id="ytplay" type="submit">Play</button>
+		<p id="badIdError" class="error">Make sure the code is 11 characters.</p>
+		<p id="sameIdError" class="error">That's the same code, dumbass.</p>
+		<p id="idkError" class="error">IDK</p>
+		<button id="ytplay">Play</button>
 		<button id="add" type="submit">Add</button>
 	</div>
 	<div id="player" class="video"></div>
-	<div id="playPause">
-		<img src="pics/play_p.svg">
+	<div class="playPauseCont">
+		<div id="playPause">
+			<img src="">
+		</div>
 	</div>
+
+	<p>9eyyhtOrKPI</p>
+	<p>UC_qla6FQwM</p>
+	<p>okzuXMEqWKk</p>
 	<!-- <button id="playPause" type="submit">>/II</button> -->
 </body>
 </html>
